@@ -8,3 +8,7 @@ wheels/
 
 # venv
 .venv
+
+# models
+models/*
+!models/.gitkeep
