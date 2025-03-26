@@ -15,10 +15,19 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = []
+dev-dependencies = [
+    "pre-commit==4.2.0",
+    "black==24.10.0",
+    "isort==6.0.1",
+    "flake8==7.1.1",
+]
 
 [tool.hatch.metadata]
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pocket_docent"]
+
+[tool.rye.scripts]
+service = "rye run python src/pocket_docent/main.py"
+lint = "pre-commit run --all-files"
