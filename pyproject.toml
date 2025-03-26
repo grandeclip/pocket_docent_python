@@ -5,7 +5,12 @@ description = "Detect works of art based on an image"
 authors = [
     { name = "Jongmin Park", email = "gzu@grandeclip.com" }
 ]
-dependencies = []
+dependencies = [
+    "onnxruntime==1.21.0",
+    "numpy==2.2.4",
+    "opencv-python==4.11.0.86",
+    "tqdm==4.67.1",
+]
 readme = "README.md"
 requires-python = ">= 3.12"
 

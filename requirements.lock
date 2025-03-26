@@ -10,3 +10,27 @@
 #   universal: false
 
 -e file:.
+coloredlogs==15.0.1
+    # via onnxruntime
+flatbuffers==25.2.10
+    # via onnxruntime
+humanfriendly==10.0
+    # via coloredlogs
+mpmath==1.3.0
+    # via sympy
+numpy==2.2.4
+    # via onnxruntime
+    # via opencv-python
+    # via pocket-docent
+onnxruntime==1.21.0
+    # via pocket-docent
+opencv-python==4.11.0.86
+    # via pocket-docent
+packaging==24.2
+    # via onnxruntime
+protobuf==6.30.1
+    # via onnxruntime
+sympy==1.13.3
+    # via onnxruntime
+tqdm==4.67.1
+    # via pocket-docent
