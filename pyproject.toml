@@ -1,0 +1,24 @@
+[project]
+name = "pocket-docent"
+version = "0.1.0"
+description = "Detect works of art based on an image"
+authors = [
+    { name = "Jongmin Park", email = "gzu@grandeclip.com" }
+]
+dependencies = []
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pocket_docent"]
