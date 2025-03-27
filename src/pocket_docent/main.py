@@ -1,17 +1,9 @@
 import argparse
 from pathlib import Path
 
-import numpy as np
 import tqdm
 
-from pocket_docent.model.encode_image_model import DINOv2Model
-
-
-def compare_features(embedding_1: np.ndarray, embedding_2: np.ndarray) -> float:
-    embedding_1 = embedding_1 / np.linalg.norm(embedding_1)
-    embedding_2 = embedding_2 / np.linalg.norm(embedding_2)
-
-    return (embedding_1 @ embedding_2.T)[0][0]
+from pocket_docent.model.encode_image_model import DINOv2Model, similarity
 
 
 def get_args() -> argparse.Namespace:
@@ -60,14 +52,14 @@ def main() -> None:
 
     for probe_id in range(num_embeddings):
         for gallery_id in range(probe_id + 1, num_embeddings):
-            similarity = compare_features(
+            score = similarity(
                 embedding_list[probe_id],
                 embedding_list[gallery_id],
             )
 
             print(
                 f"Similarity of {images[probe_id].name} and "
-                f"{images[gallery_id].name}: {similarity:.6f}"
+                f"{images[gallery_id].name}: {score:.6f}"
             )
 
 

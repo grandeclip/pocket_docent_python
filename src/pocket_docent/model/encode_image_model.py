@@ -67,3 +67,10 @@ class DINOv2Model:
         result = [p for p in providers if p not in remove_providers]
 
         return result
+
+
+def similarity(embedding_1: np.ndarray, embedding_2: np.ndarray) -> float:
+    embedding_1 = embedding_1 / np.linalg.norm(embedding_1)
+    embedding_2 = embedding_2 / np.linalg.norm(embedding_2)
+
+    return (embedding_1 @ embedding_2.T)[0][0]
