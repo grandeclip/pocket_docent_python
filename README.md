@@ -38,6 +38,13 @@
 
 [Kaggle Dataset - Best Artworks of All Time](https://www.kaggle.com/datasets/ikarus777/best-artworks-of-all-time/) 영향력있는 예술가 50명의 작품을 모았으며, 작품 이미지가 예술가별 숫자로 구분하여 제공되고 있습니다. 예술가에 대한 메타 정보가 있으나 각 작품에 대한 메타 정보는 없습니다.
 
+- Download to [assets/best_artworks_of_all_time](./assets/best_artworks_of_all_time) directory, and then unzip
+
+    ```bash
+    curl -L https://www.kaggle.com/api/v1/datasets/download/ikarus777/best-artworks-of-all-time -o assets/best-artworks-of-all-time.zip && \
+    unzip assets/best-artworks-of-all-time.zip -d assets/best_artworks_of_all_time
+    ```
+
 ## How to use
 
 초기 테스트 데이터가 [assets/sample_images](./assets/sample_images/) 에 있다고 가정하면:
