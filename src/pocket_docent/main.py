@@ -1,47 +1,10 @@
 import argparse
 from pathlib import Path
-from typing import List, Optional, Tuple
 
-import cv2
 import numpy as np
-import onnxruntime as ort
 import tqdm
 
-
-def load_onnx_model(
-    model_path: Path,
-    providers: Optional[List[str]] = None,
-) -> ort.InferenceSession:
-    ort_session = ort.InferenceSession(model_path.as_posix(), providers=providers)
-
-    return ort_session
-
-
-def preprocess_image(
-    image: np.ndarray,
-    input_size: Tuple[int, int] = (224, 224),
-    mean: Tuple[float, float, float] = (123.675, 116.28, 103.53),
-    std: Tuple[float, float, float] = (58.395, 57.12, 57.375),
-) -> np.ndarray:
-    """
-    Preprocess the input image.
-
-    Args:
-        image (numpy.ndarray): Input image.
-        input_size (tuple): Target input size. Defaults to (224, 224).
-        mean (tuple): Mean values for normalization. Defaults to (123.675, 116.28, 103.53).
-        std (tuple): Standard deviation values for normalization. Defaults to (58.395, 57.12, 57.375).
-
-    Returns:
-        numpy.ndarray: Preprocessed input data.
-    """
-    input_data = cv2.resize(image, input_size)
-    input_data = (input_data - np.array(mean)) / np.array(std)
-    input_data = input_data.astype(np.float32)
-    input_data = np.transpose(input_data, (2, 0, 1))
-    input_data = np.expand_dims(input_data, axis=0)
-
-    return input_data
+from pocket_docent.model.encode_image_model import DINOv2Model
 
 
 def compare_features(embedding_1: np.ndarray, embedding_2: np.ndarray) -> float:
@@ -78,7 +41,8 @@ def main() -> None:
     project_root = Path(__file__).parent.parent.parent
     model_path = project_root / "models" / args.model
 
-    ort_session = load_onnx_model(model_path, providers=["CPUExecutionProvider"])
+    model = DINOv2Model(model_path)
+    model.warmup()
 
     images = list(Path(args.image_dir).glob("*.jpeg"))
     images.sort()
@@ -86,13 +50,11 @@ def main() -> None:
     embedding_list = []
 
     for image_path in tqdm.tqdm(images, total=len(images), desc="Processing images..."):
-        image = cv2.imread(image_path.as_posix())
-        input_data = preprocess_image(image)
+        image = model.preprocess(image_path)
+        embedding = model.inference(image)
+        output = model.postprocess(embedding)
 
-        ort_inputs = {ort_session.get_inputs()[0].name: input_data}
-        ort_outputs = ort_session.run(None, ort_inputs)[0]
-
-        embedding_list.append(ort_outputs)
+        embedding_list.append(output)
 
     num_embeddings = len(embedding_list)
 
