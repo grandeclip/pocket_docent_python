@@ -34,5 +34,5 @@ allow-direct-references = true
 packages = ["src/pocket_docent"]
 
 [tool.rye.scripts]
-service = "rye run python src/pocket_docent/main.py"
+demo = "rye run python src/pocket_docent/demo.py"
 lint = "pre-commit run --all-files"
