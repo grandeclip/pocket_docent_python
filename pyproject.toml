@@ -10,6 +10,7 @@ dependencies = [
     "numpy==2.2.4",
     "opencv-python==4.11.0.86",
     "tqdm==4.67.1",
+    "faiss-cpu==1.10.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
@@ -35,4 +36,5 @@ packages = ["src/pocket_docent"]
 
 [tool.rye.scripts]
 demo = "rye run python src/pocket_docent/demo.py"
+register = "rye run python src/pocket_docent/register.py"
 lint = "pre-commit run --all-files"

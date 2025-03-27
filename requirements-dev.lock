@@ -19,6 +19,8 @@ coloredlogs==15.0.1
     # via onnxruntime
 distlib==0.3.9
     # via virtualenv
+faiss-cpu==1.10.0
+    # via pocket-docent
 filelock==3.18.0
     # via virtualenv
 flake8==7.1.1
@@ -38,6 +40,7 @@ mypy-extensions==1.0.0
 nodeenv==1.9.1
     # via pre-commit
 numpy==2.2.4
+    # via faiss-cpu
     # via onnxruntime
     # via opencv-python
     # via pocket-docent
@@ -47,6 +50,7 @@ opencv-python==4.11.0.86
     # via pocket-docent
 packaging==24.2
     # via black
+    # via faiss-cpu
     # via onnxruntime
 pathspec==0.12.1
     # via black
