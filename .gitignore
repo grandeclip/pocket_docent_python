@@ -9,6 +9,15 @@ wheels/
 # venv
 .venv
 
+# data
+*.zip
+assets/best_artworks_of_all_time/*
+!assets/best_artworks_of_all_time/.gitkeep
+
 # models
 models/*
 !models/.gitkeep
+
+# db
+db/*
+!db/.gitkeep

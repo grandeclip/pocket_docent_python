@@ -12,6 +12,8 @@
 -e file:.
 coloredlogs==15.0.1
     # via onnxruntime
+faiss-cpu==1.10.0
+    # via pocket-docent
 flatbuffers==25.2.10
     # via onnxruntime
 humanfriendly==10.0
@@ -19,6 +21,7 @@ humanfriendly==10.0
 mpmath==1.3.0
     # via sympy
 numpy==2.2.4
+    # via faiss-cpu
     # via onnxruntime
     # via opencv-python
     # via pocket-docent
@@ -27,6 +30,7 @@ onnxruntime==1.21.0
 opencv-python==4.11.0.86
     # via pocket-docent
 packaging==24.2
+    # via faiss-cpu
     # via onnxruntime
 protobuf==6.30.1
     # via onnxruntime
