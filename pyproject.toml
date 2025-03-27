@@ -37,4 +37,5 @@ packages = ["src/pocket_docent"]
 [tool.rye.scripts]
 demo = "rye run python src/pocket_docent/demo.py"
 register = "rye run python src/pocket_docent/register.py"
+search = "rye run python src/pocket_docent/search.py"
 lint = "pre-commit run --all-files"
