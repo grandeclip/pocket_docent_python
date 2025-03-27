@@ -53,7 +53,7 @@ class DINOv2Model:
         if self.session is None:
             raise ValueError("Model is not initialized")
 
-        return embedding
+        return embedding.flatten()
 
     def __set_providers(self) -> List[str]:
         providers = ort.get_available_providers()
@@ -73,4 +73,4 @@ def similarity(embedding_1: np.ndarray, embedding_2: np.ndarray) -> float:
     embedding_1 = embedding_1 / np.linalg.norm(embedding_1)
     embedding_2 = embedding_2 / np.linalg.norm(embedding_2)
 
-    return (embedding_1 @ embedding_2.T)[0][0]
+    return embedding_1 @ embedding_2.T
