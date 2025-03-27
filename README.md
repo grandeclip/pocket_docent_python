@@ -53,11 +53,19 @@
 rye run demo --image-dir assets/sample_images
 ```
 
-### Artworks 등록
+### Artworks
 
-```bash
-rye run register
-```
+- 등록
+
+    ```bash
+    rye run register
+    ```
+
+- 검색
+
+    ```bash
+    rye run search
+    ```
 
 <details>
 <summary>결과</summary>
