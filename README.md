@@ -50,7 +50,13 @@
 초기 테스트 데이터가 [assets/sample_images](./assets/sample_images/) 에 있다고 가정하면:
 
 ```bash
-rye run service --image-dir assets/sample_images
+rye run demo --image-dir assets/sample_images
+```
+
+### Artworks 등록
+
+```bash
+rye run register
 ```
 
 <details>

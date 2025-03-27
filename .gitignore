@@ -17,3 +17,7 @@ assets/best_artworks_of_all_time/*
 # models
 models/*
 !models/.gitkeep
+
+# db
+db/*
+!db/.gitkeep
