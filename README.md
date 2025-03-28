@@ -47,124 +47,32 @@
 
 ## How to use
 
-초기 테스트 데이터가 [assets/sample_images](./assets/sample_images/) 에 있다고 가정하면:
+### 등록
+
+[FAISS 의 cosine similarity](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes)를 사용하여 인덱싱
 
 ```bash
-rye run demo --image-dir assets/sample_images
+rye run register
 ```
 
-### Artworks
+### 검색
 
-- 등록
+인덱싱 등록이 cosine similarity 로 되어 있으므로 인덱싱에 맞게 검색
 
-    ```bash
-    rye run register
-    ```
-
-- 검색
-
-    ```bash
-    rye run search
-    ```
-
-<details>
-<summary>결과</summary>
-
-```text
-Similarity of bs_0.jpeg and bs_1.jpeg: 0.765640
-Similarity of bs_0.jpeg and bs_2.jpeg: 0.675734
-Similarity of bs_0.jpeg and bs_3.jpeg: 0.772154
-Similarity of bs_0.jpeg and mo_0.jpeg: 0.194971
-Similarity of bs_0.jpeg and mo_1.jpeg: 0.137492
-Similarity of bs_0.jpeg and mo_2.jpeg: 0.256037
-Similarity of bs_0.jpeg and mo_3.jpeg: 0.137595
-Similarity of bs_0.jpeg and mo_4.jpeg: 0.162791
-Similarity of bs_0.jpeg and tp_0.jpeg: 0.417260
-Similarity of bs_0.jpeg and tp_1.jpeg: 0.258903
-Similarity of bs_0.jpeg and tp_2.jpeg: 0.066621
-Similarity of bs_0.jpeg and tp_3.jpeg: 0.243741
-Similarity of bs_0.jpeg and tp_4.jpeg: 0.238415
-Similarity of bs_1.jpeg and bs_2.jpeg: 0.753469
-Similarity of bs_1.jpeg and bs_3.jpeg: 0.909024
-Similarity of bs_1.jpeg and mo_0.jpeg: 0.236961
-Similarity of bs_1.jpeg and mo_1.jpeg: 0.167419
-Similarity of bs_1.jpeg and mo_2.jpeg: 0.288664
-Similarity of bs_1.jpeg and mo_3.jpeg: 0.157980
-Similarity of bs_1.jpeg and mo_4.jpeg: 0.164963
-Similarity of bs_1.jpeg and tp_0.jpeg: 0.530288
-Similarity of bs_1.jpeg and tp_1.jpeg: 0.341173
-Similarity of bs_1.jpeg and tp_2.jpeg: 0.138752
-Similarity of bs_1.jpeg and tp_3.jpeg: 0.356877
-Similarity of bs_1.jpeg and tp_4.jpeg: 0.324237
-Similarity of bs_2.jpeg and bs_3.jpeg: 0.800658
-Similarity of bs_2.jpeg and mo_0.jpeg: 0.216880
-Similarity of bs_2.jpeg and mo_1.jpeg: 0.172101
-Similarity of bs_2.jpeg and mo_2.jpeg: 0.253723
-Similarity of bs_2.jpeg and mo_3.jpeg: 0.133605
-Similarity of bs_2.jpeg and mo_4.jpeg: 0.156046
-Similarity of bs_2.jpeg and tp_0.jpeg: 0.540113
-Similarity of bs_2.jpeg and tp_1.jpeg: 0.280114
-Similarity of bs_2.jpeg and tp_2.jpeg: 0.180296
-Similarity of bs_2.jpeg and tp_3.jpeg: 0.385650
-Similarity of bs_2.jpeg and tp_4.jpeg: 0.370535
-Similarity of bs_3.jpeg and mo_0.jpeg: 0.208123
-Similarity of bs_3.jpeg and mo_1.jpeg: 0.187374
-Similarity of bs_3.jpeg and mo_2.jpeg: 0.250088
-Similarity of bs_3.jpeg and mo_3.jpeg: 0.137194
-Similarity of bs_3.jpeg and mo_4.jpeg: 0.165795
-Similarity of bs_3.jpeg and tp_0.jpeg: 0.553816
-Similarity of bs_3.jpeg and tp_1.jpeg: 0.343698
-Similarity of bs_3.jpeg and tp_2.jpeg: 0.164702
-Similarity of bs_3.jpeg and tp_3.jpeg: 0.375859
-Similarity of bs_3.jpeg and tp_4.jpeg: 0.370548
-Similarity of mo_0.jpeg and mo_1.jpeg: 0.516511
-Similarity of mo_0.jpeg and mo_2.jpeg: 0.689861
-Similarity of mo_0.jpeg and mo_3.jpeg: 0.357155
-Similarity of mo_0.jpeg and mo_4.jpeg: 0.481262
-Similarity of mo_0.jpeg and tp_0.jpeg: 0.151120
-Similarity of mo_0.jpeg and tp_1.jpeg: 0.089457
-Similarity of mo_0.jpeg and tp_2.jpeg: 0.052222
-Similarity of mo_0.jpeg and tp_3.jpeg: 0.054163
-Similarity of mo_0.jpeg and tp_4.jpeg: 0.118406
-Similarity of mo_1.jpeg and mo_2.jpeg: 0.658458
-Similarity of mo_1.jpeg and mo_3.jpeg: 0.768398
-Similarity of mo_1.jpeg and mo_4.jpeg: 0.770338
-Similarity of mo_1.jpeg and tp_0.jpeg: 0.173380
-Similarity of mo_1.jpeg and tp_1.jpeg: 0.076879
-Similarity of mo_1.jpeg and tp_2.jpeg: 0.090563
-Similarity of mo_1.jpeg and tp_3.jpeg: 0.078829
-Similarity of mo_1.jpeg and tp_4.jpeg: 0.105926
-Similarity of mo_2.jpeg and mo_3.jpeg: 0.611093
-Similarity of mo_2.jpeg and mo_4.jpeg: 0.663631
-Similarity of mo_2.jpeg and tp_0.jpeg: 0.155075
-Similarity of mo_2.jpeg and tp_1.jpeg: 0.059101
-Similarity of mo_2.jpeg and tp_2.jpeg: 0.068464
-Similarity of mo_2.jpeg and tp_3.jpeg: 0.060886
-Similarity of mo_2.jpeg and tp_4.jpeg: 0.114672
-Similarity of mo_3.jpeg and mo_4.jpeg: 0.641933
-Similarity of mo_3.jpeg and tp_0.jpeg: 0.134715
-Similarity of mo_3.jpeg and tp_1.jpeg: 0.058136
-Similarity of mo_3.jpeg and tp_2.jpeg: 0.011659
-Similarity of mo_3.jpeg and tp_3.jpeg: 0.043614
-Similarity of mo_3.jpeg and tp_4.jpeg: 0.057288
-Similarity of mo_4.jpeg and tp_0.jpeg: 0.099501
-Similarity of mo_4.jpeg and tp_1.jpeg: 0.092150
-Similarity of mo_4.jpeg and tp_2.jpeg: 0.061716
-Similarity of mo_4.jpeg and tp_3.jpeg: 0.031618
-Similarity of mo_4.jpeg and tp_4.jpeg: 0.063088
-Similarity of tp_0.jpeg and tp_1.jpeg: 0.491725
-Similarity of tp_0.jpeg and tp_2.jpeg: 0.362347
-Similarity of tp_0.jpeg and tp_3.jpeg: 0.689296
-Similarity of tp_0.jpeg and tp_4.jpeg: 0.666327
-Similarity of tp_1.jpeg and tp_2.jpeg: 0.255971
-Similarity of tp_1.jpeg and tp_3.jpeg: 0.584015
-Similarity of tp_1.jpeg and tp_4.jpeg: 0.430376
-Similarity of tp_2.jpeg and tp_3.jpeg: 0.344742
-Similarity of tp_2.jpeg and tp_4.jpeg: 0.312794
-Similarity of tp_3.jpeg and tp_4.jpeg: 0.623825
+```bash
+# example
+rye run search -q assets/sample_images/mo_0.jpeg
 ```
 
-</details>
+## Result
+
+미술품이 정확환 크기로 잘려져 있지 않는한 이미지 검색을 하는데 성능이 많이 떨어집니다. 조명 등의 이슈로 톤이 달라져도 비교적 잘 검색합니다.
+
+| Sample | Result |
+|:------:|:------:|
+| [mo_0.jpeg](./assets/sample_images/mo_0.jpeg) | ![result_mo_0](./assets/docs/result_mo_0.jpg) |
+| [mo_2.jpeg](./assets/sample_images/mo_2.jpeg) | ![result_mo_2](./assets/docs/result_mo_2.jpg) |
+| [pi_1.jpeg](./assets/sample_images/pi_1.jpeg) | ![result_mo_0](./assets/docs/result_pi_1.jpg) |
 
 ## Citations
 

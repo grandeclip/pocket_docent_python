@@ -1,17 +1,82 @@
+import argparse
 from pathlib import Path
+from typing import List
 
+import cv2
 import faiss
+import matplotlib.pyplot as plt
 import numpy as np
 
 from pocket_docent.model.encode_image_model import DINOv2Model
 
 
+def show_image(
+    query_image_path: Path,
+    scores: List[float],
+    similar_artworks: List[List[str]],
+) -> None:
+    query_image = cv2.imread(query_image_path.as_posix())
+    similar_images = [cv2.imread(a[2]) for a in similar_artworks]
+
+    # Longest width for all images
+    max_width = max(img.shape[1] for img in [query_image, *similar_images])
+
+    # Resize images to the longest width while maintaining the aspect ratio
+    query_image = cv2.resize(
+        query_image,
+        (max_width, int(query_image.shape[0] * max_width / query_image.shape[1])),
+    )
+
+    similar_images = [
+        cv2.resize(img, (max_width, int(img.shape[0] * max_width / img.shape[1])))
+        for img in similar_images
+    ]
+
+    # Batch images 2x3
+    _, axes = plt.subplots(2, 3, figsize=(15, 10))
+
+    for i, ax in enumerate(axes.ravel()):
+        if i == 0:
+            ax.imshow(cv2.cvtColor(query_image, cv2.COLOR_BGR2RGB))
+            ax.set_title("Query Image")
+        elif i <= len(similar_images):
+            rank = i - 1
+            artist = similar_artworks[rank][0]
+            serial_number = similar_artworks[rank][1]
+            score = scores[rank]
+            text = f"{rank + 1} | {artist} {serial_number} | {score:.2f}"
+            ax.imshow(cv2.cvtColor(similar_images[i - 1], cv2.COLOR_BGR2RGB))
+            ax.set_title(text)
+
+        ax.axis("off")
+
+    plt.tight_layout()
+    plt.show()
+
+
+def get_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Search for similar artworks using a query image."
+    )
+    parser.add_argument(
+        "-q",
+        "--query-image",
+        type=str,
+        required=True,
+        help="Path to the query image.",
+    )
+
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = get_args()
+
     # current path is src/pocket_docent
     project_root = Path(__file__).parent.parent.parent
     index_path = project_root / "db" / "artwork_index.faiss"
     metadata_path = project_root / "db" / "artwork_metadata.npy"
-    query_image_path = project_root / "assets" / "sample_images" / "pi_1.jpeg"
+    query_image_path = Path(args.query_image)
 
     # 검색 예시
     index = faiss.read_index(str(index_path))
@@ -29,12 +94,9 @@ def main() -> None:
 
     # 쿼리 임베딩으로 검색
     scores, indices = index.search(query_embedding, k=5)  # 상위 5개 유사 이미지 검색
-    similar_artworks = metadata[indices[0]]  # 검색된 아트워크의 메타데이터
+    similar_artworks = metadata[indices[0]]  # artwork metadata
 
-    print(f"Query image: {query_image_path}")
-    print(
-        f"Similar artworks:\n{'\n'.join([f'{s:.2f}\t{a[0]}\t{a[1]}' for s, a in zip(scores[0], similar_artworks)])}"
-    )
+    show_image(query_image_path, scores[0], similar_artworks)
 
 
 if __name__ == "__main__":

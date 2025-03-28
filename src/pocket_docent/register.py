@@ -74,8 +74,9 @@ def main() -> None:
     dimension = embeddings_array.shape[1]  # embedding의 차원, 384
     assert dimension == 384
 
-    # L2 거리를 사용하는 인덱스 생성
-    index = faiss.IndexFlatL2(dimension)
+    # cosine similarity 를 사용하는 인덱스 생성
+    index = faiss.IndexFlatIP(dimension)
+    faiss.normalize_L2(embeddings_array)  # 벡터 정규화
     index.add(embeddings_array)
 
     # 인덱스 저장
