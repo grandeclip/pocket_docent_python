@@ -42,7 +42,7 @@ Grounding DINO 모델은 개방형 object detection을 위해 text encoder로 �
 
 ### Sample data
 
-초기 테스트 데이터는 구글 검색을 통해 [생각하는 사람](https://ko.wikipedia.org/wiki/생각하는_사람), [모나리자](https://ko.wikipedia.org/wiki/모나리자), [반가사유상](https://ko.wikipedia.org/wiki/반가사유상), [피카소](https://ko.wikipedia.org/wiki/파블로_피카소) 이미지를 다운받았습니다.
+초기 테스트 데이터는 구글 검색을 통해 [생각하는 사람](https://ko.wikipedia.org/wiki/생각하는_사람), [모나리자](https://ko.wikipedia.org/wiki/모나리자), [반가사유상](https://ko.wikipedia.org/wiki/반가사유상), [피카소](https://ko.wikipedia.org/wiki/파블로_피카소), [별이 빛나는 밤](https://ko.wikipedia.org/wiki/별이_빛나는_밤) 이미지를 다운받았습니다.
 
 ### Best Artworks of All Time
 
@@ -104,6 +104,8 @@ Grounding DINO 로 artwork 을 검색하면, 이전보다 훨씬 정확한 결�
 | [mo_2.jpeg](./assets/sample_images/mo_2.jpeg) | ![result_groundingdino+dinov2_s_mo_2](./assets/docs/result_groundingdino+dinov2_s_mo_2.jpg) |
 | [mo_3.jpeg](./assets/sample_images/mo_3.jpeg) | ![result_groundingdino+dinov2_s_mo_3](./assets/docs/result_groundingdino+dinov2_s_mo_3.jpg) |
 | [mo_4.jpeg](./assets/sample_images/mo_4.jpeg) | ![result_groundingdino+dinov2_s_mo_4](./assets/docs/result_groundingdino+dinov2_s_mo_4.jpg) |
+| [mo_4.jpeg](./assets/sample_images/mo_4.jpeg) | ![result_groundingdino+dinov2_s_mo_4](./assets/docs/result_groundingdino+dinov2_s_mo_4.jpg) |
+| [go_0.jpeg](./assets/sample_images/go_0.jpeg) | ![result_groundingdino+dinov2_s_go_0](./assets/docs/result_groundingdino+dinov2_s_go_0.jpg) |
 
 ## Citations
 
