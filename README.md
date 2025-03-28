@@ -120,6 +120,15 @@ Grounding DINO 로 artwork 을 검색하면, 이전보다 훨씬 정확한 결�
 }
 ```
 
+```bibtex
+@article{liu2023grounding,
+  title={Grounding dino: Marrying dino with grounded pre-training for open-set object detection},
+  author={Liu, Shilong and Zeng, Zhaoyang and Ren, Tianhe and Li, Feng and Zhang, Hao and Yang, Jie and Li, Chunyuan and Yang, Jianwei and Su, Hang and Zhu, Jun and others},
+  journal={arXiv preprint arXiv:2303.05499},
+  year={2023}
+}
+```
+
 ## Licenses
 
 - [facebookresearch/dinov2](https://github.com/facebookresearch/dinov2/blob/main/LICENSE) is licensed under the Apache License 2.0
