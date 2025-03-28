@@ -32,6 +32,12 @@ curl -L https://huggingface.co/onnx-community/dinov2-base/resolve/main/onnx/mode
 curl -L https://huggingface.co/onnx-community/dinov2-large/resolve/main/onnx/model.onnx -o models/dinov2_vitl14.onnx
 ```
 
+### Grounding DINO
+
+Grounding DINO 모델은 개방형 object detection을 위해 text encoder로 확장된 객체 감지 모델입니다. 여기서는 PyTorch 모델을 사용합니다.
+
+- [tiny](https://huggingface.co/IDEA-Research/grounding-dino-tiny): 692 MB
+
 ## Data
 
 ### Sample data
@@ -105,4 +111,5 @@ rye run search --model large --query-image assets/sample_images/mo_0.jpeg
 ## Licenses
 
 - [facebookresearch/dinov2](https://github.com/facebookresearch/dinov2/blob/main/LICENSE) is licensed under the Apache License 2.0
+- [IDEA-Research/GroundingDINO](https://github.com/IDEA-Research/GroundingDINO/blob/main/LICENSE) is licensed under the Apache License 2.0
 - [ikarus777/best-artworks-of-all-time](https://creativecommons.org/licenses/by-nc-sa/4.0/) is licensed under the CC BY-NC-SA 4.0
