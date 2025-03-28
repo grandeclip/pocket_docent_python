@@ -12,16 +12,28 @@
 -e file:.
 coloredlogs==15.0.1
     # via onnxruntime
+contourpy==1.3.1
+    # via matplotlib
+cycler==0.12.1
+    # via matplotlib
 faiss-cpu==1.10.0
     # via pocket-docent
 flatbuffers==25.2.10
     # via onnxruntime
+fonttools==4.56.0
+    # via matplotlib
 humanfriendly==10.0
     # via coloredlogs
+kiwisolver==1.4.8
+    # via matplotlib
+matplotlib==3.10.1
+    # via pocket-docent
 mpmath==1.3.0
     # via sympy
 numpy==2.2.4
+    # via contourpy
     # via faiss-cpu
+    # via matplotlib
     # via onnxruntime
     # via opencv-python
     # via pocket-docent
@@ -31,9 +43,18 @@ opencv-python==4.11.0.86
     # via pocket-docent
 packaging==24.2
     # via faiss-cpu
+    # via matplotlib
     # via onnxruntime
+pillow==11.1.0
+    # via matplotlib
 protobuf==6.30.1
     # via onnxruntime
+pyparsing==3.2.3
+    # via matplotlib
+python-dateutil==2.9.0.post0
+    # via matplotlib
+six==1.17.0
+    # via python-dateutil
 sympy==1.13.3
     # via onnxruntime
 tqdm==4.67.1

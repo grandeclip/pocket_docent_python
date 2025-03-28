@@ -1,9 +1,55 @@
 from pathlib import Path
+from typing import List
 
+import cv2
 import faiss
+import matplotlib.pyplot as plt
 import numpy as np
 
 from pocket_docent.model.encode_image_model import DINOv2Model
+
+
+def show_image(
+    query_image_path: Path,
+    scores: List[float],
+    similar_artworks: List[List[str]],
+) -> None:
+    query_image = cv2.imread(query_image_path.as_posix())
+    similar_images = [cv2.imread(a[2]) for a in similar_artworks]
+
+    # Longest width for all images
+    max_width = max(img.shape[1] for img in [query_image, *similar_images])
+
+    # Resize images to the longest width while maintaining the aspect ratio
+    query_image = cv2.resize(
+        query_image,
+        (max_width, int(query_image.shape[0] * max_width / query_image.shape[1])),
+    )
+
+    similar_images = [
+        cv2.resize(img, (max_width, int(img.shape[0] * max_width / img.shape[1])))
+        for img in similar_images
+    ]
+
+    # Batch images 2x3
+    _, axes = plt.subplots(2, 3, figsize=(15, 10))
+
+    for i, ax in enumerate(axes.ravel()):
+        if i == 0:
+            ax.imshow(cv2.cvtColor(query_image, cv2.COLOR_BGR2RGB))
+            ax.set_title("Query Image")
+        elif i <= len(similar_images):
+            artist = similar_artworks[i - 1][0]
+            serial_number = similar_artworks[i - 1][1]
+            score = scores[i - 1]
+            text = f"{artist}  {serial_number}  {score:.2f}"
+            ax.imshow(cv2.cvtColor(similar_images[i - 1], cv2.COLOR_BGR2RGB))
+            ax.set_title(text)
+
+        ax.axis("off")
+
+    plt.tight_layout()
+    plt.show()
 
 
 def main() -> None:
@@ -29,7 +75,9 @@ def main() -> None:
 
     # 쿼리 임베딩으로 검색
     scores, indices = index.search(query_embedding, k=5)  # 상위 5개 유사 이미지 검색
-    similar_artworks = metadata[indices[0]]  # 검색된 아트워크의 메타데이터
+    similar_artworks = metadata[indices[0]]  # artwork metadata
+
+    show_image(query_image_path, scores[0], similar_artworks)
 
     print(f"Query image: {query_image_path}")
     print(
