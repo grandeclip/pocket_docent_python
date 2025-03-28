@@ -1,3 +1,4 @@
+import argparse
 from pathlib import Path
 from typing import List
 
@@ -39,10 +40,11 @@ def show_image(
             ax.imshow(cv2.cvtColor(query_image, cv2.COLOR_BGR2RGB))
             ax.set_title("Query Image")
         elif i <= len(similar_images):
-            artist = similar_artworks[i - 1][0]
-            serial_number = similar_artworks[i - 1][1]
-            score = scores[i - 1]
-            text = f"{artist}  {serial_number}  {score:.2f}"
+            rank = i - 1
+            artist = similar_artworks[rank][0]
+            serial_number = similar_artworks[rank][1]
+            score = scores[rank]
+            text = f"{rank + 1} | {artist} {serial_number} | {score:.2f}"
             ax.imshow(cv2.cvtColor(similar_images[i - 1], cv2.COLOR_BGR2RGB))
             ax.set_title(text)
 
@@ -52,12 +54,29 @@ def show_image(
     plt.show()
 
 
+def get_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Search for similar artworks using a query image."
+    )
+    parser.add_argument(
+        "-q",
+        "--query-image",
+        type=str,
+        required=True,
+        help="Path to the query image.",
+    )
+
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = get_args()
+
     # current path is src/pocket_docent
     project_root = Path(__file__).parent.parent.parent
     index_path = project_root / "db" / "artwork_index.faiss"
     metadata_path = project_root / "db" / "artwork_metadata.npy"
-    query_image_path = project_root / "assets" / "sample_images" / "pi_1.jpeg"
+    query_image_path = Path(args.query_image)
 
     # 검색 예시
     index = faiss.read_index(str(index_path))
@@ -78,11 +97,6 @@ def main() -> None:
     similar_artworks = metadata[indices[0]]  # artwork metadata
 
     show_image(query_image_path, scores[0], similar_artworks)
-
-    print(f"Query image: {query_image_path}")
-    print(
-        f"Similar artworks:\n{'\n'.join([f'{s:.2f}\t{a[0]}\t{a[1]}' for s, a in zip(scores[0], similar_artworks)])}"
-    )
 
 
 if __name__ == "__main__":

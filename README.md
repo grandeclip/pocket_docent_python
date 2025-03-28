@@ -60,7 +60,8 @@ rye run register
 인덱싱 등록이 cosine similarity 로 되어 있으므로 인덱싱에 맞게 검색
 
 ```bash
-rye run search
+# example
+rye run search -q assets/sample_images/mo_0.jpeg
 ```
 
 ## Citations
