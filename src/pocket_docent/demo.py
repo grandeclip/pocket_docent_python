@@ -50,7 +50,6 @@ def main() -> None:
         embedding_list.append(output)
 
     num_embeddings = len(embedding_list)
-    print(f"Shape of embedding: {embedding_list[0].shape}")
 
     for probe_id in range(num_embeddings):
         for gallery_id in range(probe_id + 1, num_embeddings):
