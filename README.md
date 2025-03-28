@@ -4,8 +4,6 @@
 
 ## Environment
 
-### Install `rye`
-
 [Rye 설치 가이드](https://rye.astral.sh/guide/installation/) 참고
 
 ```bash
@@ -18,11 +16,11 @@ curl -sSf https://rye.astral.sh/get | bash
 rye sync
 ```
 
-### Download models
+## Models
 
-#### DINO v2
+### DINOv2
 
-[DINO v2 small](https://huggingface.co/facebook/dinov2-small) 모델은 Vision Transformer(ViT)로써 self-supervised 방식으로 방대한 이미지 컬렉션에서 사전 학습된 transformer encoder model 입니다. 여기서는 onnx 형태로 변환한 모델 파일을 사용합니다.
+[DINOv2](https://github.com/facebookresearch/dinov2) 모델은 Vision Transformer(ViT)로써 self-supervised 방식으로 방대한 이미지 컬렉션에서 사전 학습된 transformer encoder model 입니다. 여기서는 onnx 형태로 변환한 모델 파일을 사용합니다.
 
 - [small](https://huggingface.co/onnx-community/dinov2-small): 88.5 MB, (384 dimension)
 - [base](https://huggingface.co/onnx-community/dinov2-base): 346.6 MB (768 dimension)
