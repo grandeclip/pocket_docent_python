@@ -58,7 +58,7 @@
 
 ```bash
 # example
-rye run register --model dinov2_vits14.onnx
+rye run register --model small
 ```
 
 ### 검색
@@ -67,7 +67,7 @@ rye run register --model dinov2_vits14.onnx
 
 ```bash
 # example
-rye run search --model dinov2_vits14.onnx -q assets/sample_images/mo_0.jpeg
+rye run search --model base -q assets/sample_images/mo_0.jpeg
 ```
 
 ## Result

@@ -8,6 +8,7 @@ import faiss
 import numpy as np
 
 from pocket_docent.model.encode_image_model import DINOv2Model
+from pocket_docent.model.utils import ModelType
 
 
 @dataclass
@@ -40,7 +41,7 @@ def get_args() -> argparse.Namespace:
     parser.add_argument(
         "--model",
         type=str,
-        default="dinov2_vits14.onnx",
+        default=ModelType.DINOV2_VITS14.value,
         help="Path to the ONNX model.",
     )
 
@@ -52,7 +53,7 @@ def main() -> None:
 
     # current path is src/pocket_docent
     project_root = Path(__file__).parent.parent.parent
-    model_path = project_root / "models" / args.model
+    model_path = project_root / "models" / f"{ModelType(args.model).name.lower()}.onnx"
     artwork_dir = (
         project_root / "assets" / "best_artworks_of_all_time" / "images" / "images"
     )
