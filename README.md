@@ -64,6 +64,16 @@ rye run register
 rye run search -q assets/sample_images/mo_0.jpeg
 ```
 
+## Result
+
+미술품이 정확환 크기로 잘려져 있지 않는한 이미지 검색을 하는데 성능이 많이 떨어집니다. 조명 등의 이슈로 톤이 달라져도 비교적 잘 검색합니다.
+
+| Sample | Result |
+|:------:|:------:|
+| [mo_0.jpeg](./assets/sample_images/mo_0.jpeg) | ![result_mo_0](./assets/docs/result_mo_0.jpg) |
+| [mo_2.jpeg](./assets/sample_images/mo_2.jpeg) | ![result_mo_2](./assets/docs/result_mo_2.jpg) |
+| [pi_1.jpeg](./assets/sample_images/pi_1.jpeg) | ![result_mo_0](./assets/docs/result_pi_1.jpg) |
+
 ## Citations
 
 ```bibtex
