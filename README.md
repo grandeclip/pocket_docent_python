@@ -52,6 +52,13 @@
 
 ## How to use
 
+### Demo
+
+```bash
+# example
+rye run demo --model small --image-dir assets/sample_images
+```
+
 ### 등록
 
 [FAISS 의 cosine similarity](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes)를 사용하여 인덱싱
