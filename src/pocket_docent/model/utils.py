@@ -5,3 +5,4 @@ class ModelType(Enum):
     DINOV2_VITS14 = "small"
     DINOV2_VITB14 = "base"
     DINOV2_VITL14 = "large"
+    GROUNDING_DINO_TINY = "grounding_dino_tiny"

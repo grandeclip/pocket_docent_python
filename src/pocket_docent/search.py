@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from pocket_docent.model.encode_image_model import DINOv2Model
+from pocket_docent.model.grounding_dino_model import GroundingDINOModel
+from pocket_docent.model.helper import download_grounding_dino_tiny
 from pocket_docent.model.utils import ModelType
 
 
@@ -60,6 +62,12 @@ def get_args() -> argparse.Namespace:
         description="Search for similar artworks using a query image."
     )
     parser.add_argument(
+        "--detector",
+        type=str,
+        default=ModelType.GROUNDING_DINO_TINY.value,
+        help="Path to the GroundingDINO model.",
+    )
+    parser.add_argument(
         "--model",
         type=str,
         default=ModelType.DINOV2_VITS14.value,
@@ -82,6 +90,17 @@ def main() -> None:
     # current path is src/pocket_docent
     project_root = Path(__file__).parent.parent.parent
     model_path = project_root / "models" / f"{ModelType(args.model).name.lower()}.onnx"
+    grounding_dino_model_path = (
+        project_root / "models" / ModelType(args.detector).name.lower()
+    )
+
+    if not grounding_dino_model_path.exists():
+        print(f"Downloading GroundingDINO model {ModelType(args.detector).name}")
+
+        if ModelType(args.detector) == ModelType.GROUNDING_DINO_TINY:
+            download_grounding_dino_tiny(grounding_dino_model_path)
+        else:
+            raise ValueError(f"Unsupported model type: {args.detector}")
 
     model_name = model_path.stem
     index_path = project_root / "db" / f"{model_name}_index.faiss"
@@ -93,10 +112,18 @@ def main() -> None:
     index = faiss.read_index(str(index_path))
     metadata = np.load(str(metadata_path), allow_pickle=True)
 
+    grounding_dino_model = GroundingDINOModel(grounding_dino_model_path)
+    grounding_dino_model.warmup()
+
     model = DINOv2Model(model_path)
     model.warmup()
 
-    query_image = model.preprocess(query_image_path)
+    text = "an artwork."
+    image, inputs = grounding_dino_model.preprocess(query_image_path, text)
+    outputs = grounding_dino_model.inference(inputs)
+    cropped_image = grounding_dino_model.postprocess(image, inputs, outputs)
+
+    query_image = model.preprocess(cropped_image)
     query_embedding = model.inference(query_image)
     query_embedding = model.postprocess(query_embedding)
 

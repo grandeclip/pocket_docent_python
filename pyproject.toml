@@ -12,6 +12,8 @@ dependencies = [
     "tqdm==4.67.1",
     "faiss-cpu==1.10.0",
     "matplotlib==3.10.1",
+    "transformers==4.50.2",
+    "torch==2.6.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
