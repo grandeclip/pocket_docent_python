@@ -11,8 +11,12 @@
 
 -e file:.
 black==24.10.0
+certifi==2025.1.31
+    # via requests
 cfgv==3.4.0
     # via pre-commit
+charset-normalizer==3.4.1
+    # via requests
 click==8.1.8
     # via black
 coloredlogs==15.0.1
@@ -26,19 +30,34 @@ distlib==0.3.9
 faiss-cpu==1.10.0
     # via pocket-docent
 filelock==3.18.0
+    # via huggingface-hub
+    # via torch
+    # via transformers
     # via virtualenv
 flake8==7.1.1
 flatbuffers==25.2.10
     # via onnxruntime
 fonttools==4.56.0
     # via matplotlib
+fsspec==2025.3.0
+    # via huggingface-hub
+    # via torch
+huggingface-hub==0.29.3
+    # via tokenizers
+    # via transformers
 humanfriendly==10.0
     # via coloredlogs
 identify==2.6.9
     # via pre-commit
+idna==3.10
+    # via requests
 isort==6.0.1
+jinja2==3.1.6
+    # via torch
 kiwisolver==1.4.8
     # via matplotlib
+markupsafe==3.0.2
+    # via jinja2
 matplotlib==3.10.1
     # via pocket-docent
 mccabe==0.7.0
@@ -47,6 +66,8 @@ mpmath==1.3.0
     # via sympy
 mypy-extensions==1.0.0
     # via black
+networkx==3.4.2
+    # via torch
 nodeenv==1.9.1
     # via pre-commit
 numpy==2.2.4
@@ -56,6 +77,7 @@ numpy==2.2.4
     # via onnxruntime
     # via opencv-python
     # via pocket-docent
+    # via transformers
 onnxruntime==1.21.0
     # via pocket-docent
 opencv-python==4.11.0.86
@@ -63,8 +85,10 @@ opencv-python==4.11.0.86
 packaging==24.2
     # via black
     # via faiss-cpu
+    # via huggingface-hub
     # via matplotlib
     # via onnxruntime
+    # via transformers
 pathspec==0.12.1
     # via black
 pillow==11.1.0
@@ -84,12 +108,37 @@ pyparsing==3.2.3
 python-dateutil==2.9.0.post0
     # via matplotlib
 pyyaml==6.0.2
+    # via huggingface-hub
     # via pre-commit
+    # via transformers
+regex==2024.11.6
+    # via transformers
+requests==2.32.3
+    # via huggingface-hub
+    # via transformers
+safetensors==0.5.3
+    # via transformers
+setuptools==78.1.0
+    # via torch
 six==1.17.0
     # via python-dateutil
-sympy==1.13.3
+sympy==1.13.1
     # via onnxruntime
-tqdm==4.67.1
+    # via torch
+tokenizers==0.21.1
+    # via transformers
+torch==2.6.0
     # via pocket-docent
+tqdm==4.67.1
+    # via huggingface-hub
+    # via pocket-docent
+    # via transformers
+transformers==4.50.2
+    # via pocket-docent
+typing-extensions==4.13.0
+    # via huggingface-hub
+    # via torch
+urllib3==2.3.0
+    # via requests
 virtualenv==20.29.3
     # via pre-commit

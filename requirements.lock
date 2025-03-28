@@ -10,6 +10,10 @@
 #   universal: false
 
 -e file:.
+certifi==2025.1.31
+    # via requests
+charset-normalizer==3.4.1
+    # via requests
 coloredlogs==15.0.1
     # via onnxruntime
 contourpy==1.3.1
@@ -18,18 +22,36 @@ cycler==0.12.1
     # via matplotlib
 faiss-cpu==1.10.0
     # via pocket-docent
+filelock==3.18.0
+    # via huggingface-hub
+    # via torch
+    # via transformers
 flatbuffers==25.2.10
     # via onnxruntime
 fonttools==4.56.0
     # via matplotlib
+fsspec==2025.3.0
+    # via huggingface-hub
+    # via torch
+huggingface-hub==0.29.3
+    # via tokenizers
+    # via transformers
 humanfriendly==10.0
     # via coloredlogs
+idna==3.10
+    # via requests
+jinja2==3.1.6
+    # via torch
 kiwisolver==1.4.8
     # via matplotlib
+markupsafe==3.0.2
+    # via jinja2
 matplotlib==3.10.1
     # via pocket-docent
 mpmath==1.3.0
     # via sympy
+networkx==3.4.2
+    # via torch
 numpy==2.2.4
     # via contourpy
     # via faiss-cpu
@@ -37,14 +59,17 @@ numpy==2.2.4
     # via onnxruntime
     # via opencv-python
     # via pocket-docent
+    # via transformers
 onnxruntime==1.21.0
     # via pocket-docent
 opencv-python==4.11.0.86
     # via pocket-docent
 packaging==24.2
     # via faiss-cpu
+    # via huggingface-hub
     # via matplotlib
     # via onnxruntime
+    # via transformers
 pillow==11.1.0
     # via matplotlib
 protobuf==6.30.1
@@ -53,9 +78,35 @@ pyparsing==3.2.3
     # via matplotlib
 python-dateutil==2.9.0.post0
     # via matplotlib
+pyyaml==6.0.2
+    # via huggingface-hub
+    # via transformers
+regex==2024.11.6
+    # via transformers
+requests==2.32.3
+    # via huggingface-hub
+    # via transformers
+safetensors==0.5.3
+    # via transformers
+setuptools==78.1.0
+    # via torch
 six==1.17.0
     # via python-dateutil
-sympy==1.13.3
+sympy==1.13.1
     # via onnxruntime
-tqdm==4.67.1
+    # via torch
+tokenizers==0.21.1
+    # via transformers
+torch==2.6.0
     # via pocket-docent
+tqdm==4.67.1
+    # via huggingface-hub
+    # via pocket-docent
+    # via transformers
+transformers==4.50.2
+    # via pocket-docent
+typing-extensions==4.13.0
+    # via huggingface-hub
+    # via torch
+urllib3==2.3.0
+    # via requests
