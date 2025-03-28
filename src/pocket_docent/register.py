@@ -1,3 +1,4 @@
+import argparse
 from dataclasses import dataclass
 from pathlib import Path
 from time import perf_counter
@@ -7,6 +8,7 @@ import faiss
 import numpy as np
 
 from pocket_docent.model.encode_image_model import DINOv2Model
+from pocket_docent.model.utils import ModelType
 
 
 @dataclass
@@ -34,13 +36,31 @@ def generator_image_path(artwork_dir: Path) -> Iterator[Path]:
             yield image_path
 
 
+def get_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Register artworks to the database.")
+    parser.add_argument(
+        "--model",
+        type=str,
+        default=ModelType.DINOV2_VITS14.value,
+        help="Path to the ONNX model.",
+    )
+
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = get_args()
+
     # current path is src/pocket_docent
     project_root = Path(__file__).parent.parent.parent
-    model_path = project_root / "models" / "dinov2_vits14.onnx"
+    model_path = project_root / "models" / f"{ModelType(args.model).name.lower()}.onnx"
     artwork_dir = (
         project_root / "assets" / "best_artworks_of_all_time" / "images" / "images"
     )
+
+    model_name = model_path.stem
+    index_path = project_root / "db" / f"{model_name}_index.faiss"
+    metadata_path = project_root / "db" / "artworks_metadata.npy"
 
     model = DINOv2Model(model_path)
     model.warmup()
@@ -71,8 +91,7 @@ def main() -> None:
 
     # FAISS 인덱스 생성 및 저장
     embeddings_array = np.array(embeddings).astype("float32")
-    dimension = embeddings_array.shape[1]  # embedding의 차원, 384
-    assert dimension == 384
+    dimension = embeddings_array.shape[1]  # embedding의 차원, small: 384, base: 768
 
     # cosine similarity 를 사용하는 인덱스 생성
     index = faiss.IndexFlatIP(dimension)
@@ -80,7 +99,6 @@ def main() -> None:
     index.add(embeddings_array)
 
     # 인덱스 저장
-    index_path = project_root / "db" / "artwork_index.faiss"
     faiss.write_index(index, str(index_path))
 
     # 메타데이터 저장 (아티스트, 시리얼 번호, 이미지 경로)
@@ -88,8 +106,11 @@ def main() -> None:
         (artwork.artist, artwork.serial_number, artwork.image_path.as_posix())
         for artwork in artworks
     ]
-    metadata_path = project_root / "db" / "artwork_metadata.npy"
-    np.save(str(metadata_path), metadata)
+
+    if not metadata_path.exists():
+        np.save(str(metadata_path), metadata)
+    else:
+        print(f"Metadata file already exists: {metadata_path}")
 
     end_time = perf_counter()
 

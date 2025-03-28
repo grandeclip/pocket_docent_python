@@ -22,17 +22,22 @@
 
 #### DINO v2
 
-[DINO v2 small](https://huggingface.co/facebook/dinov2-small) 모델은 Vision Transformer(ViT)로써 self-supervised 방식으로 방대한 이미지 컬렉션에서 사전 학습된 transformer encoder model 입니다. 여기서는 [onnx](https://huggingface.co/sefaburak/dinov2-small-onnx) 형태로 변환한 모델 파일을 사용합니다.
+[DINO v2 small](https://huggingface.co/facebook/dinov2-small) 모델은 Vision Transformer(ViT)로써 self-supervised 방식으로 방대한 이미지 컬렉션에서 사전 학습된 transformer encoder model 입니다. 여기서는 onnx 형태로 변환한 모델 파일을 사용합니다.
 
 - Download to [models](./models) directory
+  - [small](https://huggingface.co/onnx-community/dinov2-small): 88.5 MB
+  - [base](https://huggingface.co/Xenova/dinov2-base): 346.6 MB
 
     ```bash
-    curl -L https://huggingface.co/sefaburak/dinov2-small-onnx/resolve/main/dinov2_vits14.onnx -o models/dinov2_vits14.onnx
+    curl -L https://huggingface.co/onnx-community/dinov2-small/resolve/main/onnx/model.onnx -o models/dinov2_vits14.onnx
+    curl -L https://huggingface.co/onnx-community/dinov2-base/resolve/main/onnx/model.onnx -o models/dinov2_vitb14.onnx
     ```
 
 ## Data
 
-초기 테스트 데이터는 구글 검색을 통해 [생각하는 사람](https://ko.wikipedia.org/wiki/%EC%83%9D%EA%B0%81%ED%95%98%EB%8A%94_%EC%82%AC%EB%9E%8C), [모나리자](https://ko.wikipedia.org/wiki/%EB%AA%A8%EB%82%98%EB%A6%AC%EC%9E%90), [반가사유상](https://ko.wikipedia.org/wiki/%EB%B0%98%EA%B0%80%EC%82%AC%EC%9C%A0%EC%83%81) 이미지를 다운받았습니다.
+### Sample data
+
+초기 테스트 데이터는 구글 검색을 통해 [생각하는 사람](https://ko.wikipedia.org/wiki/생각하는_사람), [모나리자](https://ko.wikipedia.org/wiki/모나리자), [반가사유상](https://ko.wikipedia.org/wiki/반가사유상), [피카소](https://ko.wikipedia.org/wiki/파블로_피카소) 이미지를 다운받았습니다.
 
 ### Best Artworks of All Time
 
@@ -47,12 +52,20 @@
 
 ## How to use
 
+### Demo
+
+```bash
+# example
+rye run demo --model small --image-dir assets/sample_images
+```
+
 ### 등록
 
 [FAISS 의 cosine similarity](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes)를 사용하여 인덱싱
 
 ```bash
-rye run register
+# example
+rye run register --model small
 ```
 
 ### 검색
@@ -61,18 +74,18 @@ rye run register
 
 ```bash
 # example
-rye run search -q assets/sample_images/mo_0.jpeg
+rye run search --model base -q assets/sample_images/mo_0.jpeg
 ```
 
 ## Result
 
 미술품이 정확환 크기로 잘려져 있지 않는한 이미지 검색을 하는데 성능이 많이 떨어집니다. 조명 등의 이슈로 톤이 달라져도 비교적 잘 검색합니다.
 
-| Sample | Result |
-|:------:|:------:|
-| [mo_0.jpeg](./assets/sample_images/mo_0.jpeg) | ![result_mo_0](./assets/docs/result_mo_0.jpg) |
-| [mo_2.jpeg](./assets/sample_images/mo_2.jpeg) | ![result_mo_2](./assets/docs/result_mo_2.jpg) |
-| [pi_1.jpeg](./assets/sample_images/pi_1.jpeg) | ![result_mo_0](./assets/docs/result_pi_1.jpg) |
+| Sample | DINOv2 small | DINOv2 base |
+|:------:|:------------:|:-----------:|
+| [mo_0.jpeg](./assets/sample_images/mo_0.jpeg) | ![result_dinov2_s_mo_0](./assets/docs/result_dinov2_s_mo_0.jpg) | ![result_dinov2_b_mo_0](./assets/docs/result_dinov2_b_mo_0.jpg) |
+| [mo_2.jpeg](./assets/sample_images/mo_2.jpeg) | ![result_dinov2_s_mo_2](./assets/docs/result_dinov2_s_mo_2.jpg) | ![result_dinov2_b_mo_2](./assets/docs/result_dinov2_b_mo_2.jpg) |
+| [pi_1.jpeg](./assets/sample_images/pi_1.jpeg) | ![result_dinov2_s_pi_1](./assets/docs/result_dinov2_s_pi_1.jpg) | ![result_dinov2_b_pi_1](./assets/docs/result_dinov2_b_pi_1.jpg) |
 
 ## Citations
 
@@ -90,5 +103,4 @@ misc{oquab2023dinov2,
 ## Licenses
 
 - [facebookresearch/dinov2](https://github.com/facebookresearch/dinov2/blob/main/LICENSE) is licensed under the Apache License 2.0
-- [sefaburakokcu/dinov2_onnx](https://github.com/sefaburakokcu/dinov2_onnx/blob/main/LICENSE) is licensed under the Apache License 2.0
 - [ikarus777/best-artworks-of-all-time](https://creativecommons.org/licenses/by-nc-sa/4.0/) is licensed under the CC BY-NC-SA 4.0

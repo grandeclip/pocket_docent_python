@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from pocket_docent.model.encode_image_model import DINOv2Model
+from pocket_docent.model.utils import ModelType
 
 
 def show_image(
@@ -59,6 +60,12 @@ def get_args() -> argparse.Namespace:
         description="Search for similar artworks using a query image."
     )
     parser.add_argument(
+        "--model",
+        type=str,
+        default=ModelType.DINOV2_VITS14.value,
+        help="Path to the ONNX model.",
+    )
+    parser.add_argument(
         "-q",
         "--query-image",
         type=str,
@@ -74,15 +81,19 @@ def main() -> None:
 
     # current path is src/pocket_docent
     project_root = Path(__file__).parent.parent.parent
-    index_path = project_root / "db" / "artwork_index.faiss"
-    metadata_path = project_root / "db" / "artwork_metadata.npy"
+    model_path = project_root / "models" / f"{ModelType(args.model).name.lower()}.onnx"
+
+    model_name = model_path.stem
+    index_path = project_root / "db" / f"{model_name}_index.faiss"
+
+    metadata_path = project_root / "db" / "artworks_metadata.npy"
     query_image_path = Path(args.query_image)
 
     # 검색 예시
     index = faiss.read_index(str(index_path))
     metadata = np.load(str(metadata_path), allow_pickle=True)
 
-    model = DINOv2Model(project_root / "models" / "dinov2_vits14.onnx")
+    model = DINOv2Model(model_path)
     model.warmup()
 
     query_image = model.preprocess(query_image_path)
