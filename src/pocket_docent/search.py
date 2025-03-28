@@ -118,12 +118,10 @@ def main() -> None:
     model = DINOv2Model(model_path)
     model.warmup()
 
-    image, inputs = grounding_dino_model.preprocess(query_image_path, "an artwork.")
+    text = "an artwork."
+    image, inputs = grounding_dino_model.preprocess(query_image_path, text)
     outputs = grounding_dino_model.inference(inputs)
     cropped_image = grounding_dino_model.postprocess(image, inputs, outputs)
-
-    plt.imshow(cropped_image)
-    plt.show()
 
     query_image = model.preprocess(cropped_image)
     query_embedding = model.inference(query_image)
