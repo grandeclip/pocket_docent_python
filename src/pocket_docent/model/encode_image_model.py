@@ -53,6 +53,10 @@ class DINOv2Model:
         if self.session is None:
             raise ValueError("Model is not initialized")
 
+        # 일부 DINOv2 모델의 출력 형식은 (1, some, output_dim) 으로 나오는데 이를 (1, output_dim) 로 변환
+        if embedding.ndim == 3:
+            embedding = embedding[:, 0, :]
+
         return embedding.flatten()
 
     def __set_providers(self) -> List[str]:
